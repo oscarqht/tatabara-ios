@@ -3,16 +3,47 @@ import XCTest
 
 @MainActor
 final class TimerEngineTests: XCTestCase {
-    func testEstimatedDurationIncludesCountdowns() {
-        let preset = WorkoutPreset(workDurationSeconds: 40, restDurationSeconds: 15, cycleCount: 3)
-        XCTAssertEqual(preset.estimatedTotalDuration, 147)
+    private func assertOffsets(
+        _ actual: [TimeInterval],
+        equalTo expected: [TimeInterval],
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        XCTAssertEqual(actual.count, expected.count, file: file, line: line)
+
+        for (actualOffset, expectedOffset) in zip(actual, expected) {
+            XCTAssertEqual(actualOffset, expectedOffset, accuracy: 0.001, file: file, line: line)
+        }
     }
 
-    func testBuildSegmentsCreatesCountdownsAndRestTransitions() {
+    private final class RecordingSessionAudioCoordinator: SessionAudioControlling {
+        private(set) var playCalls: [(snapshot: TimerSessionSnapshot, remainingSegments: [SessionSegment])] = []
+        private(set) var stopCallCount = 0
+
+        func play(snapshot: TimerSessionSnapshot, remainingSegments: [SessionSegment]) {
+            playCalls.append((snapshot, remainingSegments))
+        }
+
+        func stop() {
+            stopCallCount += 1
+        }
+    }
+
+    private func allowDeferredAudioSync() async {
+        await Task.yield()
+        await Task.yield()
+    }
+
+    func testEstimatedDurationExcludesCountdowns() {
+        let preset = WorkoutPreset(workDurationSeconds: 40, restDurationSeconds: 15, cycleCount: 3)
+        XCTAssertEqual(preset.estimatedTotalDuration, 150)
+    }
+
+    func testBuildSegmentsCreatesWorkAndRestTransitions() {
         let preset = WorkoutPreset(workDurationSeconds: 40, restDurationSeconds: 15, cycleCount: 2)
         let segments = TimerEngine.buildSegments(from: preset)
 
-        XCTAssertEqual(segments.map(\.phase), [.countdownToWork, .work, .countdownToRest, .rest, .countdownToWork, .work])
+        XCTAssertEqual(segments.map(\.phase), [.work, .rest, .work])
     }
 
     func testPauseAndResumeKeepsRemainingTimeStable() {
@@ -32,7 +63,7 @@ final class TimerEngineTests: XCTestCase {
         XCTAssertEqual(engine.snapshot!.remainingSeconds, pausedRemaining!, accuracy: 0.01)
     }
 
-    func testRestartCurrentPhaseResetsCountdown() {
+    func testRestartCurrentPhaseResetsCurrentWorkout() {
         let engine = TimerEngine(audioCoordinator: NoopSessionAudioCoordinator())
         let startDate = Date(timeIntervalSince1970: 100)
 
@@ -40,9 +71,9 @@ final class TimerEngineTests: XCTestCase {
         engine.synchronize(now: startDate.addingTimeInterval(2.4))
         engine.restartCurrentPhase(now: startDate.addingTimeInterval(2.4))
 
-        XCTAssertEqual(engine.snapshot?.phase, .countdownToWork)
+        XCTAssertEqual(engine.snapshot?.phase, .work)
         XCTAssertNotNil(engine.snapshot?.remainingSeconds)
-        XCTAssertEqual(engine.snapshot!.remainingSeconds, 3, accuracy: 0.01)
+        XCTAssertEqual(engine.snapshot!.remainingSeconds, 40, accuracy: 0.01)
     }
 
     func testSynchronizeAdvancesAcrossBackgroundGap() {
@@ -55,5 +86,97 @@ final class TimerEngineTests: XCTestCase {
 
         XCTAssertEqual(engine.snapshot?.phase, .rest)
         XCTAssertEqual(engine.snapshot?.currentCycle, 1)
+    }
+
+    func testStartPublishesSessionBeforeAudioPlaybackBegins() async {
+        let audioCoordinator = RecordingSessionAudioCoordinator()
+        let engine = TimerEngine(audioCoordinator: audioCoordinator)
+        let startDate = Date(timeIntervalSince1970: 100)
+
+        engine.start(with: .default, now: startDate)
+
+        XCTAssertEqual(engine.snapshot?.phase, .work)
+        XCTAssertTrue(audioCoordinator.playCalls.isEmpty)
+
+        await allowDeferredAudioSync()
+
+        XCTAssertEqual(audioCoordinator.playCalls.count, 1)
+    }
+
+    func testResumeRebuildsCueTimelineFromCurrentElapsedTime() async {
+        let audioCoordinator = RecordingSessionAudioCoordinator()
+        let engine = TimerEngine(audioCoordinator: audioCoordinator)
+        let preset = WorkoutPreset(workDurationSeconds: 40, restDurationSeconds: 15, cycleCount: 2)
+        let startDate = Date(timeIntervalSince1970: 100)
+
+        engine.start(with: preset, now: startDate)
+        await allowDeferredAudioSync()
+        engine.synchronize(now: startDate.addingTimeInterval(12))
+        engine.pause(now: startDate.addingTimeInterval(12))
+        await allowDeferredAudioSync()
+        engine.resume(now: startDate.addingTimeInterval(50))
+        await allowDeferredAudioSync()
+
+        guard let resumedPlayback = audioCoordinator.playCalls.last else {
+            return XCTFail("Expected audio timeline to rebuild on resume.")
+        }
+
+        let cues = SessionCuePlanner.cues(
+            for: resumedPlayback.remainingSegments,
+            currentElapsed: resumedPlayback.snapshot.elapsedSeconds
+        )
+
+        XCTAssertEqual(
+            cues.map(\.kind),
+            [
+                .voiceHalfway, .voiceTenSeconds,
+                .beepShort, .beepShort, .beepLong,
+                .beepShort, .beepShort, .beepRestFinal,
+                .voiceHalfway, .voiceTenSeconds,
+                .beepShort, .beepShort, .beepLong
+            ]
+        )
+        assertOffsets(cues.map(\.offsetSeconds), equalTo: [8, 18, 25, 26, 27, 40, 41, 42, 63, 73, 80, 81, 82])
+    }
+
+    func testStopClearsSessionBeforeAudioTeardownRuns() async {
+        let audioCoordinator = RecordingSessionAudioCoordinator()
+        let engine = TimerEngine(audioCoordinator: audioCoordinator)
+        let startDate = Date(timeIntervalSince1970: 100)
+
+        engine.start(with: .default, now: startDate)
+        await allowDeferredAudioSync()
+
+        engine.stop()
+
+        XCTAssertNil(engine.snapshot)
+        XCTAssertEqual(audioCoordinator.stopCallCount, 0)
+
+        await allowDeferredAudioSync()
+
+        XCTAssertEqual(audioCoordinator.stopCallCount, 1)
+    }
+
+    func testBackgroundRecoveryDoesNotReplayExpiredRestBeeps() {
+        let engine = TimerEngine(audioCoordinator: NoopSessionAudioCoordinator())
+        let preset = WorkoutPreset(workDurationSeconds: 40, restDurationSeconds: 15, cycleCount: 2)
+        let startDate = Date(timeIntervalSince1970: 100)
+
+        engine.start(with: preset, now: startDate)
+        engine.synchronize(now: startDate.addingTimeInterval(46))
+
+        XCTAssertEqual(engine.snapshot?.phase, .rest)
+        XCTAssertEqual(engine.snapshot?.currentCycle, 1)
+
+        let cues = SessionCuePlanner.cues(
+            for: engine.remainingSegments(),
+            currentElapsed: engine.snapshot?.elapsedSeconds ?? 0
+        )
+
+        XCTAssertEqual(
+            cues.map(\.kind),
+            [.beepShort, .beepShort, .beepRestFinal, .voiceHalfway, .voiceTenSeconds, .beepShort, .beepShort, .beepLong]
+        )
+        assertOffsets(cues.map(\.offsetSeconds), equalTo: [6, 7, 8, 29, 39, 46, 47, 48])
     }
 }

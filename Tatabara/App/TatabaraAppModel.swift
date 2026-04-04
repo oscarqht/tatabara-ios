@@ -2,7 +2,6 @@ import Foundation
 
 @MainActor
 final class TatabaraAppModel: ObservableObject {
-    @Published var selectedTab: AppTab = .workout
     @Published var preset: WorkoutPreset {
         didSet {
             presetStore.save(preset)

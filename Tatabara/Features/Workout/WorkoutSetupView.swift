@@ -13,7 +13,6 @@ struct WorkoutSetupView: View {
             VStack(alignment: .leading, spacing: 28) {
                 header
                 pickerSection
-                intensityCard
                 startButton
             }
             .padding(.horizontal, TatabaraTheme.Spacing.page)
@@ -22,25 +21,7 @@ struct WorkoutSetupView: View {
         }
         .background(TatabaraTheme.ColorPalette.background.ignoresSafeArea())
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Image(systemName: "bolt.fill")
-                    .foregroundStyle(TatabaraTheme.ColorPalette.primary)
-            }
-
-            ToolbarItem(placement: .principal) {
-                Text("Tatabara")
-                    .font(TatabaraFont.headline(22, weight: .bold))
-                    .foregroundStyle(TatabaraTheme.ColorPalette.primary)
-            }
-
-            ToolbarItem(placement: .topBarTrailing) {
-                Image(systemName: "gearshape.fill")
-                    .foregroundStyle(TatabaraTheme.ColorPalette.primary)
-            }
-        }
-        .toolbarBackground(TatabaraTheme.ColorPalette.background.opacity(0.95), for: .navigationBar)
-        .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbar(.hidden, for: .navigationBar)
     }
 
     private var header: some View {
@@ -100,44 +81,6 @@ struct WorkoutSetupView: View {
                 selection: $preset.cycleCount
             )
         }
-    }
-
-    private var intensityCard: some View {
-        VStack(alignment: .leading, spacing: 20) {
-            HStack(spacing: 14) {
-                RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .fill(TatabaraTheme.ColorPalette.secondary.opacity(0.22))
-                    .frame(width: 56, height: 56)
-                    .overlay {
-                        Image(systemName: "chart.bar.xaxis")
-                            .font(.system(size: 22, weight: .bold))
-                            .foregroundStyle(TatabaraTheme.ColorPalette.secondary)
-                    }
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Intensity Profile")
-                        .font(TatabaraFont.headline(20, weight: .bold))
-                        .foregroundStyle(TatabaraTheme.ColorPalette.textPrimary)
-                        .textCase(.uppercase)
-
-                    Text("High-intensity interval training designed for fast transitions and crisp cues.")
-                        .font(TatabaraFont.body(13, weight: .medium))
-                        .foregroundStyle(TatabaraTheme.ColorPalette.textSecondary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-            }
-
-            HStack(alignment: .bottom, spacing: 8) {
-                ForEach(Array(preset.intensityBars.enumerated()), id: \.offset) { _, height in
-                    RoundedRectangle(cornerRadius: 8, style: .continuous)
-                        .fill(height > 0.21 ? TatabaraTheme.ColorPalette.primary : TatabaraTheme.ColorPalette.secondary)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: CGFloat(26 + (height * 60)))
-                }
-            }
-            .frame(height: 96, alignment: .bottom)
-        }
-        .tatabaraGlassStyle()
     }
 
     private var startButton: some View {

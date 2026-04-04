@@ -12,11 +12,9 @@ struct WorkoutPreset: Codable, Equatable, Hashable {
     )
 
     var estimatedTotalDuration: TimeInterval {
-        let countdownToWorkTotal = cycleCount * 3
-        let countdownToRestTotal = max(cycleCount - 1, 0) * 3
         let workTotal = cycleCount * workDurationSeconds
         let restTotal = max(cycleCount - 1, 0) * restDurationSeconds
-        return TimeInterval(countdownToWorkTotal + countdownToRestTotal + workTotal + restTotal)
+        return TimeInterval(workTotal + restTotal)
     }
 
     var intensityBars: [Double] {

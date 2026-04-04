@@ -6,6 +6,15 @@ enum SessionCueKind: Equatable, Hashable {
     case beepRestFinal
     case voiceHalfway
     case voiceTenSeconds
+
+    var isVoice: Bool {
+        switch self {
+        case .voiceHalfway, .voiceTenSeconds:
+            true
+        case .beepShort, .beepLong, .beepRestFinal:
+            false
+        }
+    }
 }
 
 struct SessionCue: Equatable, Hashable, Identifiable {

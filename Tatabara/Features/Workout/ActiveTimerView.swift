@@ -22,26 +22,7 @@ struct ActiveTimerView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                HStack(spacing: 10) {
-                    Image(systemName: "bolt.fill")
-                    Text("Tatabara")
-                        .font(TatabaraFont.headline(18, weight: .bold))
-                }
-                .foregroundStyle(TatabaraTheme.ColorPalette.primary)
-            }
-
-            ToolbarItem(placement: .topBarTrailing) {
-                Button("End") {
-                    timerEngine.stop()
-                }
-                .font(TatabaraFont.body(14, weight: .semibold))
-                .foregroundStyle(TatabaraTheme.ColorPalette.primary)
-            }
-        }
-        .toolbarBackground(TatabaraTheme.ColorPalette.background, for: .navigationBar)
-        .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbar(.hidden, for: .navigationBar)
         .onChange(of: timerEngine.snapshot?.phase, initial: true) { _, phase in
             if phase == .completed || timerEngine.snapshot == nil {
                 dismiss()
@@ -72,18 +53,21 @@ struct ActiveTimerView: View {
 
     private func timerRing(snapshot: TimerSessionSnapshot) -> some View {
         let accent = accentColor(for: snapshot.phase)
+        let remainingProgress = snapshot.phase == .completed ? 0.0 : max(1 - snapshot.progress, 0.02)
 
         return ZStack {
             Circle()
                 .stroke(TatabaraTheme.ColorPalette.surfaceHighest, lineWidth: 10)
 
             Circle()
-                .trim(from: 0, to: max(snapshot.progress, 0.02))
+                .trim(from: 0, to: remainingProgress)
                 .stroke(
                     accent,
                     style: StrokeStyle(lineWidth: 10, lineCap: .round)
                 )
                 .rotationEffect(.degrees(-90))
+                .scaleEffect(x: -1, y: 1)
+                .animation(.linear(duration: 0.08), value: remainingProgress)
                 .tatabaraGlow(accent)
 
             VStack(spacing: 10) {
@@ -103,10 +87,6 @@ struct ActiveTimerView: View {
 
                 if snapshot.isPaused {
                     Text("Paused")
-                        .font(TatabaraFont.body(13, weight: .semibold))
-                        .foregroundStyle(TatabaraTheme.ColorPalette.textSecondary)
-                } else {
-                    Text("Locked to wall clock timing")
                         .font(TatabaraFont.body(13, weight: .semibold))
                         .foregroundStyle(TatabaraTheme.ColorPalette.textSecondary)
                 }
@@ -194,9 +174,9 @@ struct ActiveTimerView: View {
 
     private func accentColor(for phase: TimerPhase) -> Color {
         switch phase {
-        case .countdownToWork, .work:
+        case .work:
             TatabaraTheme.ColorPalette.primary
-        case .countdownToRest, .rest:
+        case .rest:
             TatabaraTheme.ColorPalette.secondary
         case .completed:
             TatabaraTheme.ColorPalette.tertiary

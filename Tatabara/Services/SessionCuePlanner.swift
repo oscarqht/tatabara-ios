@@ -29,44 +29,73 @@ enum SessionCuePlanner {
 
     private static func cues(for segment: SessionSegment, phaseStartOffset: TimeInterval) -> [SessionCue] {
         switch segment.phase {
-        case .countdownToWork:
-            return [
-                SessionCue(offsetSeconds: phaseStartOffset, kind: .beepShort),
-                SessionCue(offsetSeconds: phaseStartOffset + 1, kind: .beepShort),
-                SessionCue(offsetSeconds: phaseStartOffset + 2, kind: .beepLong)
-            ]
+        case .work:
+            return workVoicePrompts(
+                durationSeconds: segment.durationSeconds,
+                phaseStartOffset: phaseStartOffset
+            ) + phaseEndPrompts(
+                durationSeconds: segment.durationSeconds,
+                phaseStartOffset: phaseStartOffset,
+                finalBeep: .beepLong
+            )
 
-        case .countdownToRest:
-            return [
-                SessionCue(offsetSeconds: phaseStartOffset, kind: .beepShort),
-                SessionCue(offsetSeconds: phaseStartOffset + 1, kind: .beepShort),
-                SessionCue(offsetSeconds: phaseStartOffset + 2, kind: .beepRestFinal)
-            ]
-
-        case .work, .rest:
-            var cues: [SessionCue] = []
-            if segment.durationSeconds >= 20 {
-                cues.append(
-                    SessionCue(
-                        offsetSeconds: phaseStartOffset + (segment.durationSeconds / 2),
-                        kind: .voiceHalfway
-                    )
-                )
-            }
-
-            if segment.durationSeconds > 10 {
-                cues.append(
-                    SessionCue(
-                        offsetSeconds: phaseStartOffset + (segment.durationSeconds - 10),
-                        kind: .voiceTenSeconds
-                    )
-                )
-            }
-
-            return cues
+        case .rest:
+            return phaseEndPrompts(
+                durationSeconds: segment.durationSeconds,
+                phaseStartOffset: phaseStartOffset,
+                finalBeep: .beepRestFinal
+            )
 
         case .completed:
             return []
         }
+    }
+
+    private static func workVoicePrompts(
+        durationSeconds: TimeInterval,
+        phaseStartOffset: TimeInterval
+    ) -> [SessionCue] {
+        var cues: [SessionCue] = []
+
+        if durationSeconds >= 30 {
+            cues.append(
+                SessionCue(
+                    offsetSeconds: phaseStartOffset + (durationSeconds / 2),
+                    kind: .voiceHalfway
+                )
+            )
+        }
+
+        if durationSeconds > 10 {
+            cues.append(
+                SessionCue(
+                    offsetSeconds: phaseStartOffset + (durationSeconds - 10),
+                    kind: .voiceTenSeconds
+                )
+            )
+        }
+
+        return cues
+    }
+
+    private static func phaseEndPrompts(
+        durationSeconds: TimeInterval,
+        phaseStartOffset: TimeInterval,
+        finalBeep: SessionCueKind
+    ) -> [SessionCue] {
+        [
+            SessionCue(
+                offsetSeconds: phaseStartOffset + max(durationSeconds - 3, 0),
+                kind: .beepShort
+            ),
+            SessionCue(
+                offsetSeconds: phaseStartOffset + max(durationSeconds - 2, 0),
+                kind: .beepShort
+            ),
+            SessionCue(
+                offsetSeconds: phaseStartOffset + max(durationSeconds - 1, 0),
+                kind: finalBeep
+            )
+        ]
     }
 }

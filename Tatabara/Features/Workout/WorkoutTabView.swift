@@ -2,6 +2,13 @@ import SwiftUI
 
 struct WorkoutTabView: View {
     @ObservedObject var model: TatabaraAppModel
+    @ObservedObject private var timerEngine: TimerEngine
+    @State private var route: WorkoutRoute?
+
+    init(model: TatabaraAppModel) {
+        self.model = model
+        _timerEngine = ObservedObject(wrappedValue: model.timerEngine)
+    }
 
     var body: some View {
         NavigationStack {
@@ -9,18 +16,18 @@ struct WorkoutTabView: View {
                 preset: $model.preset,
                 onStart: model.startWorkout
             )
-            .navigationDestination(
-                isPresented: Binding(
-                    get: { model.timerEngine.hasActiveSession },
-                    set: { isPresented in
-                        if !isPresented {
-                            model.timerEngine.stop()
-                        }
-                    }
-                )
-            ) {
-                ActiveTimerView(timerEngine: model.timerEngine)
+            .navigationDestination(item: $route) { _ in
+                ActiveTimerView(timerEngine: timerEngine)
             }
         }
+        .onChange(of: timerEngine.snapshot, initial: true) { _, snapshot in
+            route = (snapshot != nil && snapshot?.phase != .completed) ? .activeSession : nil
+        }
     }
+}
+
+private enum WorkoutRoute: String, Identifiable {
+    case activeSession
+
+    var id: String { rawValue }
 }
