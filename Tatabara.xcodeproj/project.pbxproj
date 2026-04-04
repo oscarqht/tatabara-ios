@@ -1,0 +1,709 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0164E21B737ED4C5D26F1B2D /* TimerSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F71CC9514B08061BEF8849C /* TimerSession.swift */; };
+		029511FA39D39BEA2C662286 /* SessionCuePlannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A9F0087CF16D53CAB93CC /* SessionCuePlannerTests.swift */; };
+		07AE31C55E4B24551C18E5B6 /* TatabaraTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48535D8B16BB47EE8C89791 /* TatabaraTheme.swift */; };
+		10DE004FA151C1215131D56A /* HistoryPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E079B310C844D6BD47BD4E5 /* HistoryPlaceholderView.swift */; };
+		1550E436881B92F5BF0542F5 /* beep-long.wav in Resources */ = {isa = PBXBuildFile; fileRef = C02E44A3E7AA87327757A5AA /* beep-long.wav */; };
+		2393B74EE4ADAD616E31A463 /* SpaceGrotesk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB29188B5F6CBAB4DB9C7635 /* SpaceGrotesk.ttf */; };
+		292DE61F041B175EDB48A022 /* PresetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1ECE2F3ADC2116E269EA90D /* PresetStore.swift */; };
+		328D9F4DEDCA5D626FBB1E85 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EB7B39DB048AF0CAEC1E34 /* Foundation.framework */; };
+		335A30BAC3F5084C71687292 /* TimerEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B14B3C735C555C0CEC6EC13D /* TimerEngineTests.swift */; };
+		4698CBF27779DC598B50CB6B /* SessionCuePlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FCD22D5C09659453799D70 /* SessionCuePlanner.swift */; };
+		56B17A0DABF81F53CBC99E0C /* beep-short.wav in Resources */ = {isa = PBXBuildFile; fileRef = 32A9B89855642788A9338488 /* beep-short.wav */; };
+		58D90154C0102DF0F6F6AE9F /* ProfilePlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976D16414E6D6666CB33593E /* ProfilePlaceholderView.swift */; };
+		60A3B9523B138921942E689A /* WorkoutPreset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DF267A18A7A7C39A80916F /* WorkoutPreset.swift */; };
+		66F627B4107FA874B43F13A9 /* beep-rest-final.wav in Resources */ = {isa = PBXBuildFile; fileRef = 6C7B363A968C49F219E36826 /* beep-rest-final.wav */; };
+		6BB66A8D0757C7761BF61429 /* PreviewContent in Resources */ = {isa = PBXBuildFile; fileRef = D5EE04CD31BBCE4434563CD8 /* PreviewContent */; };
+		6CBAA8670AF72BF6ED1E1265 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E43B553BA76164C26CAFB6E3 /* Assets.xcassets */; };
+		7DE857D75DEC66014C88A600 /* ActiveTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC5E208ACC1D517879811E5 /* ActiveTimerView.swift */; };
+		7F6DD3A7BB9024102D92F19C /* SessionActivitySyncing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 850F891DA35F4103F9C7C74B /* SessionActivitySyncing.swift */; };
+		7FA2A3CB35A76EE4D78E7239 /* WorkoutTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0C8B046E2518CF15F982EC /* WorkoutTabView.swift */; };
+		89533062B0488EF3373C9D0B /* TimerEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891C7634761FCB4EBFC582C7 /* TimerEngine.swift */; };
+		995D84D736716B1765C86A8A /* ValueStepperColumn.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA3502D156503C808015E7DF /* ValueStepperColumn.swift */; };
+		9C7A40A0FEC08D5347C1FFDB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAA0A447697E2D385016D25 /* ContentView.swift */; };
+		A3D23EF42EA1E61B9F08DF55 /* TatabaraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9477E1F7178B0F92E7007A0 /* TatabaraUITests.swift */; };
+		A7A940AA7188B3EA2B5B2FF2 /* PlaceholderScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586BC3401705F9DC1DA85A60 /* PlaceholderScreen.swift */; };
+		AFCA03366672479576F321B3 /* SpeechClipRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5C43F66AC8E937237227823 /* SpeechClipRenderer.swift */; };
+		B32672230D071056D0D26BCF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EB7B39DB048AF0CAEC1E34 /* Foundation.framework */; };
+		B34C55196C388124676F2F89 /* WorkoutSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DD1E3CB53F9DAB0FBE30C1 /* WorkoutSetupView.swift */; };
+		B39920E93C14B290D6C6B58E /* Inter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FFDCB9BD919BD82E3C39D6D /* Inter.ttf */; };
+		B6B67009376375D947525AC7 /* SessionCue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0107088DF6E2F2571877D79D /* SessionCue.swift */; };
+		C78BC55711253AEDBDCBFEAF /* TatabaraAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E82920ED188BCA7500DA060 /* TatabaraAppModel.swift */; };
+		CAE01FC7711C853C42310B66 /* SessionAudioCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F30ABC01B07C2D27CC0CFE /* SessionAudioCoordinator.swift */; };
+		CE1CE9DE1D8BE5BE76C80F74 /* TatabaraApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA8E8A7DF564B4909567CD66 /* TatabaraApp.swift */; };
+		D52395D01FB574FABB7C5214 /* TimerPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127E8409A33D073505E8F9C8 /* TimerPhase.swift */; };
+		E21BDBBC451378C0DD2819F1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73EB7B39DB048AF0CAEC1E34 /* Foundation.framework */; };
+		F4E22F58E59696EDCB02BAF6 /* AppTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F05BE2EC0A5FD65A4BA60D /* AppTab.swift */; };
+		FC3C2CF86F9F7B91D668CFB5 /* TatabaraUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C118D75A6E7F04E580535ED /* TatabaraUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4A37A28CEA071E8CCB8DDDD5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550B377E903825666C4D3AC6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FA55C3802F7A909E46E0F57;
+			remoteInfo = Tatabara;
+		};
+		CE4E21239EA130B791949CB4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 550B377E903825666C4D3AC6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FA55C3802F7A909E46E0F57;
+			remoteInfo = Tatabara;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0107088DF6E2F2571877D79D /* SessionCue.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionCue.swift; path = Models/SessionCue.swift; sourceTree = "<group>"; };
+		0C118D75A6E7F04E580535ED /* TatabaraUITestsLaunchTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TatabaraUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		127E8409A33D073505E8F9C8 /* TimerPhase.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimerPhase.swift; path = Models/TimerPhase.swift; sourceTree = "<group>"; };
+		21DF267A18A7A7C39A80916F /* WorkoutPreset.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WorkoutPreset.swift; path = Models/WorkoutPreset.swift; sourceTree = "<group>"; };
+		32A9B89855642788A9338488 /* beep-short.wav */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = audio.wav; name = "beep-short.wav"; path = "Resources/Audio/beep-short.wav"; sourceTree = "<group>"; };
+		3CAA0A447697E2D385016D25 /* ContentView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ContentView.swift; path = App/ContentView.swift; sourceTree = "<group>"; };
+		4155331B8F59CE2C08FB921C /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = Contents.json; path = Assets.xcassets/AccentColor.colorset/Contents.json; sourceTree = "<group>"; };
+		4C7A9F0087CF16D53CAB93CC /* SessionCuePlannerTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = SessionCuePlannerTests.swift; sourceTree = "<group>"; };
+		4C8FA00FC20BA536C2DEB839 /* TatabaraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TatabaraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		586BC3401705F9DC1DA85A60 /* PlaceholderScreen.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PlaceholderScreen.swift; path = Features/Profile/PlaceholderScreen.swift; sourceTree = "<group>"; };
+		5E82920ED188BCA7500DA060 /* TatabaraAppModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TatabaraAppModel.swift; path = App/TatabaraAppModel.swift; sourceTree = "<group>"; };
+		5EE84F19194D3D4C472A81B8 /* Tatabara.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tatabara.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C7B363A968C49F219E36826 /* beep-rest-final.wav */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = audio.wav; name = "beep-rest-final.wav"; path = "Resources/Audio/beep-rest-final.wav"; sourceTree = "<group>"; };
+		6E079B310C844D6BD47BD4E5 /* HistoryPlaceholderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = HistoryPlaceholderView.swift; path = Features/History/HistoryPlaceholderView.swift; sourceTree = "<group>"; };
+		73EB7B39DB048AF0CAEC1E34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		78F30ABC01B07C2D27CC0CFE /* SessionAudioCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionAudioCoordinator.swift; path = Services/SessionAudioCoordinator.swift; sourceTree = "<group>"; };
+		7AC5E208ACC1D517879811E5 /* ActiveTimerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ActiveTimerView.swift; path = Features/Workout/ActiveTimerView.swift; sourceTree = "<group>"; };
+		847B89E78AB8313C31E3B5EE /* TatabaraTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TatabaraTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		850F891DA35F4103F9C7C74B /* SessionActivitySyncing.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionActivitySyncing.swift; path = Services/SessionActivitySyncing.swift; sourceTree = "<group>"; };
+		891C7634761FCB4EBFC582C7 /* TimerEngine.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimerEngine.swift; path = Services/TimerEngine.swift; sourceTree = "<group>"; };
+		8F71CC9514B08061BEF8849C /* TimerSession.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TimerSession.swift; path = Models/TimerSession.swift; sourceTree = "<group>"; };
+		8FFDCB9BD919BD82E3C39D6D /* Inter.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = Inter.ttf; path = Resources/Fonts/Inter.ttf; sourceTree = "<group>"; };
+		976D16414E6D6666CB33593E /* ProfilePlaceholderView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ProfilePlaceholderView.swift; path = Features/Profile/ProfilePlaceholderView.swift; sourceTree = "<group>"; };
+		A5C43F66AC8E937237227823 /* SpeechClipRenderer.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SpeechClipRenderer.swift; path = Services/SpeechClipRenderer.swift; sourceTree = "<group>"; };
+		B06570CF20886DC1D18C3DC8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B14B3C735C555C0CEC6EC13D /* TimerEngineTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TimerEngineTests.swift; sourceTree = "<group>"; };
+		C02E44A3E7AA87327757A5AA /* beep-long.wav */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = audio.wav; name = "beep-long.wav"; path = "Resources/Audio/beep-long.wav"; sourceTree = "<group>"; };
+		C0FCD22D5C09659453799D70 /* SessionCuePlanner.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SessionCuePlanner.swift; path = Services/SessionCuePlanner.swift; sourceTree = "<group>"; };
+		C0FF23C650B10C0FF4D1FD16 /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = Contents.json; path = Assets.xcassets/Contents.json; sourceTree = "<group>"; };
+		C1ECE2F3ADC2116E269EA90D /* PresetStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PresetStore.swift; path = Services/PresetStore.swift; sourceTree = "<group>"; };
+		C2F05BE2EC0A5FD65A4BA60D /* AppTab.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AppTab.swift; path = App/AppTab.swift; sourceTree = "<group>"; };
+		CB29188B5F6CBAB4DB9C7635 /* SpaceGrotesk.ttf */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; name = SpaceGrotesk.ttf; path = Resources/Fonts/SpaceGrotesk.ttf; sourceTree = "<group>"; };
+		D3DD1E3CB53F9DAB0FBE30C1 /* WorkoutSetupView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WorkoutSetupView.swift; path = Features/Workout/WorkoutSetupView.swift; sourceTree = "<group>"; };
+		D5EE04CD31BBCE4434563CD8 /* PreviewContent */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; path = PreviewContent; sourceTree = "<group>"; };
+		DA3502D156503C808015E7DF /* ValueStepperColumn.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ValueStepperColumn.swift; path = Features/Workout/Components/ValueStepperColumn.swift; sourceTree = "<group>"; };
+		DA8E8A7DF564B4909567CD66 /* TatabaraApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TatabaraApp.swift; path = App/TatabaraApp.swift; sourceTree = "<group>"; };
+		E43B553BA76164C26CAFB6E3 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E48535D8B16BB47EE8C89791 /* TatabaraTheme.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = TatabaraTheme.swift; path = Theme/TatabaraTheme.swift; sourceTree = "<group>"; };
+		F21D867FE0ABA20E35D303AA /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = Contents.json; path = PreviewContent/Preview/Contents.json; sourceTree = "<group>"; };
+		F81A322599BA7FB6C00B49BB /* Contents.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; name = Contents.json; path = Assets.xcassets/AppIcon.appiconset/Contents.json; sourceTree = "<group>"; };
+		F9477E1F7178B0F92E7007A0 /* TatabaraUITests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TatabaraUITests.swift; sourceTree = "<group>"; };
+		FC0C8B046E2518CF15F982EC /* WorkoutTabView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = WorkoutTabView.swift; path = Features/Workout/WorkoutTabView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0C8810DE65D11860AEF08443 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				328D9F4DEDCA5D626FBB1E85 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		40DC7F17B1CC330B0D3AB1E7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B32672230D071056D0D26BCF /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F41C5FC0602192453B85A190 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E21BDBBC451378C0DD2819F1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		006CB5334B75BE95501C82B7 /* Tatabara */ = {
+			isa = PBXGroup;
+			children = (
+				C2F05BE2EC0A5FD65A4BA60D /* AppTab.swift */,
+				3CAA0A447697E2D385016D25 /* ContentView.swift */,
+				DA8E8A7DF564B4909567CD66 /* TatabaraApp.swift */,
+				5E82920ED188BCA7500DA060 /* TatabaraAppModel.swift */,
+				4155331B8F59CE2C08FB921C /* Contents.json */,
+				F81A322599BA7FB6C00B49BB /* Contents.json */,
+				C0FF23C650B10C0FF4D1FD16 /* Contents.json */,
+				6E079B310C844D6BD47BD4E5 /* HistoryPlaceholderView.swift */,
+				586BC3401705F9DC1DA85A60 /* PlaceholderScreen.swift */,
+				976D16414E6D6666CB33593E /* ProfilePlaceholderView.swift */,
+				7AC5E208ACC1D517879811E5 /* ActiveTimerView.swift */,
+				DA3502D156503C808015E7DF /* ValueStepperColumn.swift */,
+				D3DD1E3CB53F9DAB0FBE30C1 /* WorkoutSetupView.swift */,
+				FC0C8B046E2518CF15F982EC /* WorkoutTabView.swift */,
+				B06570CF20886DC1D18C3DC8 /* Info.plist */,
+				0107088DF6E2F2571877D79D /* SessionCue.swift */,
+				127E8409A33D073505E8F9C8 /* TimerPhase.swift */,
+				8F71CC9514B08061BEF8849C /* TimerSession.swift */,
+				21DF267A18A7A7C39A80916F /* WorkoutPreset.swift */,
+				F21D867FE0ABA20E35D303AA /* Contents.json */,
+				C02E44A3E7AA87327757A5AA /* beep-long.wav */,
+				6C7B363A968C49F219E36826 /* beep-rest-final.wav */,
+				32A9B89855642788A9338488 /* beep-short.wav */,
+				8FFDCB9BD919BD82E3C39D6D /* Inter.ttf */,
+				CB29188B5F6CBAB4DB9C7635 /* SpaceGrotesk.ttf */,
+				C1ECE2F3ADC2116E269EA90D /* PresetStore.swift */,
+				850F891DA35F4103F9C7C74B /* SessionActivitySyncing.swift */,
+				78F30ABC01B07C2D27CC0CFE /* SessionAudioCoordinator.swift */,
+				C0FCD22D5C09659453799D70 /* SessionCuePlanner.swift */,
+				A5C43F66AC8E937237227823 /* SpeechClipRenderer.swift */,
+				891C7634761FCB4EBFC582C7 /* TimerEngine.swift */,
+				E48535D8B16BB47EE8C89791 /* TatabaraTheme.swift */,
+				E43B553BA76164C26CAFB6E3 /* Assets.xcassets */,
+				D5EE04CD31BBCE4434563CD8 /* PreviewContent */,
+			);
+			path = Tatabara;
+			sourceTree = "<group>";
+		};
+		170B8D2169F9B4A9561DD146 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				5EE84F19194D3D4C472A81B8 /* Tatabara.app */,
+				847B89E78AB8313C31E3B5EE /* TatabaraTests.xctest */,
+				4C8FA00FC20BA536C2DEB839 /* TatabaraUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3B449629180D883CFB5CC579 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				73EB7B39DB048AF0CAEC1E34 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		44C48A17E90A833803477B5A = {
+			isa = PBXGroup;
+			children = (
+				170B8D2169F9B4A9561DD146 /* Products */,
+				52AA93928426DAD5E2822B8A /* Frameworks */,
+				006CB5334B75BE95501C82B7 /* Tatabara */,
+				B0A6B02D08219A4A805C86AC /* TatabaraTests */,
+				6B77CA898A701C2C95A071B8 /* TatabaraUITests */,
+			);
+			sourceTree = "<group>";
+		};
+		52AA93928426DAD5E2822B8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3B449629180D883CFB5CC579 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6B77CA898A701C2C95A071B8 /* TatabaraUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F9477E1F7178B0F92E7007A0 /* TatabaraUITests.swift */,
+				0C118D75A6E7F04E580535ED /* TatabaraUITestsLaunchTests.swift */,
+			);
+			path = TatabaraUITests;
+			sourceTree = "<group>";
+		};
+		B0A6B02D08219A4A805C86AC /* TatabaraTests */ = {
+			isa = PBXGroup;
+			children = (
+				4C7A9F0087CF16D53CAB93CC /* SessionCuePlannerTests.swift */,
+				B14B3C735C555C0CEC6EC13D /* TimerEngineTests.swift */,
+			);
+			path = TatabaraTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1A2A0EFC863FA68719DA4A26 /* TatabaraUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF46CE06BE29EA682A4B2C6C /* Build configuration list for PBXNativeTarget "TatabaraUITests" */;
+			buildPhases = (
+				2F3D104CF0150B5AC8FE5EAA /* Sources */,
+				0C8810DE65D11860AEF08443 /* Frameworks */,
+				94650783E1B6E5AD6EE3FDEC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E455519F91B73CB46F4C53A6 /* PBXTargetDependency */,
+			);
+			name = TatabaraUITests;
+			productName = TatabaraUITests;
+			productReference = 4C8FA00FC20BA536C2DEB839 /* TatabaraUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		1FA55C3802F7A909E46E0F57 /* Tatabara */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4EBB00D410AC0AAE14BC7BA8 /* Build configuration list for PBXNativeTarget "Tatabara" */;
+			buildPhases = (
+				8C5B6A3A6C5C34663935E051 /* Sources */,
+				40DC7F17B1CC330B0D3AB1E7 /* Frameworks */,
+				9BF980CC11A6345A929E3561 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tatabara;
+			productName = Tatabara;
+			productReference = 5EE84F19194D3D4C472A81B8 /* Tatabara.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ABAEB05CBBA6A99B13568F84 /* TatabaraTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD34A0F07318C6EE838709D3 /* Build configuration list for PBXNativeTarget "TatabaraTests" */;
+			buildPhases = (
+				FE5E35771F98414827F3851F /* Sources */,
+				F41C5FC0602192453B85A190 /* Frameworks */,
+				6D8EB2797EEFC886267975F1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9B151DCC64A6F8F3FB5F57DA /* PBXTargetDependency */,
+			);
+			name = TatabaraTests;
+			productName = TatabaraTests;
+			productReference = 847B89E78AB8313C31E3B5EE /* TatabaraTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		550B377E903825666C4D3AC6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 2640;
+				LastUpgradeCheck = 2640;
+				TargetAttributes = {
+					1A2A0EFC863FA68719DA4A26 = {
+						ProvisioningStyle = Automatic;
+					};
+					1FA55C3802F7A909E46E0F57 = {
+						DevelopmentTeam = G6F3KD9JS8;
+						ProvisioningStyle = Automatic;
+					};
+					ABAEB05CBBA6A99B13568F84 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = FA49878BE4368DE2DA957B58 /* Build configuration list for PBXProject "Tatabara" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 44C48A17E90A833803477B5A;
+			productRefGroup = 170B8D2169F9B4A9561DD146 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1FA55C3802F7A909E46E0F57 /* Tatabara */,
+				ABAEB05CBBA6A99B13568F84 /* TatabaraTests */,
+				1A2A0EFC863FA68719DA4A26 /* TatabaraUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6D8EB2797EEFC886267975F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		94650783E1B6E5AD6EE3FDEC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9BF980CC11A6345A929E3561 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1550E436881B92F5BF0542F5 /* beep-long.wav in Resources */,
+				66F627B4107FA874B43F13A9 /* beep-rest-final.wav in Resources */,
+				56B17A0DABF81F53CBC99E0C /* beep-short.wav in Resources */,
+				B39920E93C14B290D6C6B58E /* Inter.ttf in Resources */,
+				2393B74EE4ADAD616E31A463 /* SpaceGrotesk.ttf in Resources */,
+				6CBAA8670AF72BF6ED1E1265 /* Assets.xcassets in Resources */,
+				6BB66A8D0757C7761BF61429 /* PreviewContent in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2F3D104CF0150B5AC8FE5EAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A3D23EF42EA1E61B9F08DF55 /* TatabaraUITests.swift in Sources */,
+				FC3C2CF86F9F7B91D668CFB5 /* TatabaraUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8C5B6A3A6C5C34663935E051 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4E22F58E59696EDCB02BAF6 /* AppTab.swift in Sources */,
+				9C7A40A0FEC08D5347C1FFDB /* ContentView.swift in Sources */,
+				CE1CE9DE1D8BE5BE76C80F74 /* TatabaraApp.swift in Sources */,
+				C78BC55711253AEDBDCBFEAF /* TatabaraAppModel.swift in Sources */,
+				10DE004FA151C1215131D56A /* HistoryPlaceholderView.swift in Sources */,
+				A7A940AA7188B3EA2B5B2FF2 /* PlaceholderScreen.swift in Sources */,
+				58D90154C0102DF0F6F6AE9F /* ProfilePlaceholderView.swift in Sources */,
+				7DE857D75DEC66014C88A600 /* ActiveTimerView.swift in Sources */,
+				995D84D736716B1765C86A8A /* ValueStepperColumn.swift in Sources */,
+				B34C55196C388124676F2F89 /* WorkoutSetupView.swift in Sources */,
+				7FA2A3CB35A76EE4D78E7239 /* WorkoutTabView.swift in Sources */,
+				B6B67009376375D947525AC7 /* SessionCue.swift in Sources */,
+				D52395D01FB574FABB7C5214 /* TimerPhase.swift in Sources */,
+				0164E21B737ED4C5D26F1B2D /* TimerSession.swift in Sources */,
+				60A3B9523B138921942E689A /* WorkoutPreset.swift in Sources */,
+				292DE61F041B175EDB48A022 /* PresetStore.swift in Sources */,
+				7F6DD3A7BB9024102D92F19C /* SessionActivitySyncing.swift in Sources */,
+				CAE01FC7711C853C42310B66 /* SessionAudioCoordinator.swift in Sources */,
+				4698CBF27779DC598B50CB6B /* SessionCuePlanner.swift in Sources */,
+				AFCA03366672479576F321B3 /* SpeechClipRenderer.swift in Sources */,
+				89533062B0488EF3373C9D0B /* TimerEngine.swift in Sources */,
+				07AE31C55E4B24551C18E5B6 /* TatabaraTheme.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FE5E35771F98414827F3851F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				029511FA39D39BEA2C662286 /* SessionCuePlannerTests.swift in Sources */,
+				335A30BAC3F5084C71687292 /* TimerEngineTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9B151DCC64A6F8F3FB5F57DA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Tatabara;
+			target = 1FA55C3802F7A909E46E0F57 /* Tatabara */;
+			targetProxy = 4A37A28CEA071E8CCB8DDDD5 /* PBXContainerItemProxy */;
+		};
+		E455519F91B73CB46F4C53A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Tatabara;
+			target = 1FA55C3802F7A909E46E0F57 /* Tatabara */;
+			targetProxy = CE4E21239EA130B791949CB4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		22E08562B8E9399DCEA10012 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tatabara.appUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = Tatabara;
+			};
+			name = Debug;
+		};
+		3DC0FB09A1826C63A0104B43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Tatabara/PreviewContent\"";
+				DEVELOPMENT_TEAM = G6F3KD9JS8;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Tatabara/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tatabara.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3F702172E5EE26B6B930D5AC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		42D0E3393DD233483DC245E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tatabara.appTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tatabara.app/Tatabara";
+			};
+			name = Debug;
+		};
+		6DDF55C20ADBB6B87C5B3823 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tatabara.appUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = Tatabara;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C3EDA7690A7640A1222131B7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Tatabara/PreviewContent\"";
+				DEVELOPMENT_TEAM = G6F3KD9JS8;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Tatabara/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tatabara.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		C8C67657E87FF427A1D637F1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		F273C95B5C4F71B253E4370F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tatabara.appTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tatabara.app/Tatabara";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4EBB00D410AC0AAE14BC7BA8 /* Build configuration list for PBXNativeTarget "Tatabara" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3DC0FB09A1826C63A0104B43 /* Release */,
+				C3EDA7690A7640A1222131B7 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD34A0F07318C6EE838709D3 /* Build configuration list for PBXNativeTarget "TatabaraTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F273C95B5C4F71B253E4370F /* Release */,
+				42D0E3393DD233483DC245E0 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF46CE06BE29EA682A4B2C6C /* Build configuration list for PBXNativeTarget "TatabaraUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DDF55C20ADBB6B87C5B3823 /* Release */,
+				22E08562B8E9399DCEA10012 /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA49878BE4368DE2DA957B58 /* Build configuration list for PBXProject "Tatabara" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C8C67657E87FF427A1D637F1 /* Debug */,
+				3F702172E5EE26B6B930D5AC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 550B377E903825666C4D3AC6 /* Project object */;
+}
