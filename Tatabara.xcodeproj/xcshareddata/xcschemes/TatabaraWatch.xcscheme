@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3150820EE99EF422AAA747F2"
-               BuildableName = "Tatabara.app"
-               BlueprintName = "Tatabara"
+               BlueprintIdentifier = "F036FF39DD6694330A2B07F8"
+               BuildableName = "TatabaraWatch.app"
+               BlueprintName = "TatabaraWatch"
                ReferencedContainer = "container:Tatabara.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -30,33 +30,13 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3150820EE99EF422AAA747F2"
-            BuildableName = "Tatabara.app"
-            BlueprintName = "Tatabara"
+            BlueprintIdentifier = "F036FF39DD6694330A2B07F8"
+            BuildableName = "TatabaraWatch.app"
+            BlueprintName = "TatabaraWatch"
             ReferencedContainer = "container:Tatabara.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0C0CBA1454B095E4FEC28B00"
-               BuildableName = "TatabaraTests.xctest"
-               BlueprintName = "TatabaraTests"
-               ReferencedContainer = "container:Tatabara.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "148E812E0D3295A9B9102009"
-               BuildableName = "TatabaraUITests.xctest"
-               BlueprintName = "TatabaraUITests"
-               ReferencedContainer = "container:Tatabara.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -73,9 +53,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3150820EE99EF422AAA747F2"
-            BuildableName = "Tatabara.app"
-            BlueprintName = "Tatabara"
+            BlueprintIdentifier = "F036FF39DD6694330A2B07F8"
+            BuildableName = "TatabaraWatch.app"
+            BlueprintName = "TatabaraWatch"
             ReferencedContainer = "container:Tatabara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -90,9 +70,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "3150820EE99EF422AAA747F2"
-            BuildableName = "Tatabara.app"
-            BlueprintName = "Tatabara"
+            BlueprintIdentifier = "F036FF39DD6694330A2B07F8"
+            BuildableName = "TatabaraWatch.app"
+            BlueprintName = "TatabaraWatch"
             ReferencedContainer = "container:Tatabara.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -14,7 +14,11 @@ struct WorkoutTabView: View {
         NavigationStack {
             WorkoutSetupView(
                 preset: $model.preset,
-                onStart: model.startWorkout
+                onStart: {
+                    Task {
+                        await model.startWorkout()
+                    }
+                }
             )
             .navigationDestination(item: $route) { _ in
                 ActiveTimerView(timerEngine: timerEngine)
