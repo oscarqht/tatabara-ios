@@ -31,10 +31,15 @@ final class TimerEngineTests: XCTestCase {
 
     private final class RecordingSessionAudioCoordinator: SessionAudioControlling {
         private(set) var playCalls: [(snapshot: TimerSessionSnapshot, remainingSegments: [SessionSegment])] = []
+        private(set) var completionCueCallCount = 0
         private(set) var stopCallCount = 0
 
         func play(snapshot: TimerSessionSnapshot, remainingSegments: [SessionSegment]) {
             playCalls.append((snapshot, remainingSegments))
+        }
+
+        func playCompletionCue() {
+            completionCueCallCount += 1
         }
 
         func stop() {
@@ -169,6 +174,24 @@ final class TimerEngineTests: XCTestCase {
         await allowDeferredAudioSync()
 
         XCTAssertEqual(audioCoordinator.stopCallCount, 1)
+    }
+
+    func testCompletionTriggersWorkoutCompleteCue() async {
+        let audioCoordinator = RecordingSessionAudioCoordinator()
+        let engine = TimerEngine(audioCoordinator: audioCoordinator)
+        let preset = WorkoutPreset(workDurationSeconds: 5, restDurationSeconds: 3, cycleCount: 1)
+        let startDate = Date(timeIntervalSince1970: 100)
+
+        engine.start(with: preset, now: startDate)
+        engine.synchronize(now: startDate.addingTimeInterval(TimerEngine.prestartDurationSeconds + 5))
+
+        XCTAssertEqual(engine.snapshot?.phase, .completed)
+        XCTAssertEqual(audioCoordinator.completionCueCallCount, 0)
+
+        await allowDeferredAudioSync()
+
+        XCTAssertEqual(audioCoordinator.completionCueCallCount, 1)
+        XCTAssertEqual(audioCoordinator.stopCallCount, 0)
     }
 
     func testBackgroundRecoveryDoesNotReplayExpiredRestBeeps() {

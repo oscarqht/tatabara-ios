@@ -249,7 +249,17 @@ final class TimerEngine: ObservableObject {
 
             guard let self, !Task.isCancelled else { return }
 
-            guard let snapshot, snapshot.phase != .completed, !snapshot.isPaused else {
+            guard let snapshot else {
+                self.audioCoordinator.stop()
+                return
+            }
+
+            if snapshot.phase == .completed {
+                self.audioCoordinator.playCompletionCue()
+                return
+            }
+
+            guard !snapshot.isPaused else {
                 self.audioCoordinator.stop()
                 return
             }

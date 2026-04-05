@@ -3,6 +3,7 @@ import Foundation
 
 protocol SessionAudioControlling: AnyObject {
     func play(snapshot: TimerSessionSnapshot, remainingSegments: [SessionSegment])
+    func playCompletionCue()
     func stop()
 }
 
@@ -20,6 +21,7 @@ final class SessionAudioCoordinator: SessionAudioControlling, @unchecked Sendabl
     private static let halfwayPhrase = "Half way there"
     private static let tenSecondsPhrase = "10 seconds"
     private static let restPhrase = "Rest"
+    private static let workoutCompletePhrase = "Workout complete"
 
     private let speechRenderer = SpeechClipRenderer()
     private let sampleRate: Double = 22_050
@@ -48,6 +50,7 @@ final class SessionAudioCoordinator: SessionAudioControlling, @unchecked Sendabl
             _ = try? await renderer.fileURL(for: Self.halfwayPhrase)
             _ = try? await renderer.fileURL(for: Self.tenSecondsPhrase)
             _ = try? await renderer.fileURL(for: Self.restPhrase)
+            _ = try? await renderer.fileURL(for: Self.workoutCompletePhrase)
         }
     }
 
@@ -61,6 +64,12 @@ final class SessionAudioCoordinator: SessionAudioControlling, @unchecked Sendabl
     ) {
         queue.async { [weak self] in
             self?.beginPlayback(snapshot: snapshot, remainingSegments: remainingSegments)
+        }
+    }
+
+    func playCompletionCue() {
+        queue.async { [weak self] in
+            self?.beginCompletionPlayback()
         }
     }
 
@@ -147,6 +156,44 @@ final class SessionAudioCoordinator: SessionAudioControlling, @unchecked Sendabl
                 }
             } catch {
                 // Keep the workout running even if spoken prompts fail to render.
+            }
+        }
+    }
+
+    private func beginCompletionPlayback() {
+        playbackGeneration &+= 1
+        let generation = playbackGeneration
+
+        voicePreparationTask?.cancel()
+        voicePreparationTask = nil
+        cancelCleanupTasks()
+        stopActivePlayers()
+
+        do {
+            try startPlayback()
+        } catch {
+            stopPlayback(incrementGeneration: false, deactivateSession: true)
+            return
+        }
+
+        let renderer = speechRenderer
+        let warmupTask = warmupTask
+        let audioQueue = queue
+
+        voicePreparationTask = Task.detached { [weak self] in
+            do {
+                await warmupTask?.value
+                let url = try await renderer.fileURL(for: Self.workoutCompletePhrase)
+                guard !Task.isCancelled else { return }
+
+                audioQueue.async { [weak self] in
+                    guard let self, self.playbackGeneration == generation else { return }
+                    self.playImmediateCue(from: url)
+                }
+            } catch {
+                audioQueue.async { [weak self] in
+                    self?.stopPlayback(incrementGeneration: false, deactivateSession: true)
+                }
             }
         }
     }
@@ -312,6 +359,33 @@ final class SessionAudioCoordinator: SessionAudioControlling, @unchecked Sendabl
         }
     }
 
+    private func playImmediateCue(from url: URL) {
+        do {
+            let player = try AVAudioPlayer(contentsOf: url)
+            player.volume = 1.0
+            player.prepareToPlay()
+
+            let playerID = UUID()
+            activePlayers[playerID] = player
+
+            guard player.play() else {
+                activePlayers[playerID] = nil
+                stopPlayback(incrementGeneration: false, deactivateSession: true)
+                return
+            }
+
+            let cleanupDelay = max(player.duration, 0.2) + 0.5
+            let cleanupWorkItem = DispatchWorkItem { [weak self] in
+                self?.releasePlayer(playerID)
+                self?.stopPlayback(incrementGeneration: false, deactivateSession: true)
+            }
+            cleanupWorkItems[playerID] = cleanupWorkItem
+            queue.asyncAfter(deadline: .now() + cleanupDelay, execute: cleanupWorkItem)
+        } catch {
+            stopPlayback(incrementGeneration: false, deactivateSession: true)
+        }
+    }
+
     private func cancelCleanupTasks() {
         cleanupWorkItems.values.forEach { $0.cancel() }
         cleanupWorkItems.removeAll()
@@ -370,5 +444,6 @@ final class SessionAudioCoordinator: SessionAudioControlling, @unchecked Sendabl
 
 final class NoopSessionAudioCoordinator: SessionAudioControlling {
     func play(snapshot: TimerSessionSnapshot, remainingSegments: [SessionSegment]) {}
+    func playCompletionCue() {}
     func stop() {}
 }
