@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1FA55C3802F7A909E46E0F57"
+               BlueprintIdentifier = "3150820EE99EF422AAA747F2"
                BuildableName = "Tatabara.app"
                BlueprintName = "Tatabara"
                ReferencedContainer = "container:Tatabara.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ABAEB05CBBA6A99B13568F84"
+               BlueprintIdentifier = "0C0CBA1454B095E4FEC28B00"
                BuildableName = "TatabaraTests.xctest"
                BlueprintName = "TatabaraTests"
                ReferencedContainer = "container:Tatabara.xcodeproj">
@@ -44,7 +44,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1FA55C3802F7A909E46E0F57"
+            BlueprintIdentifier = "3150820EE99EF422AAA747F2"
             BuildableName = "Tatabara.app"
             BlueprintName = "Tatabara"
             ReferencedContainer = "container:Tatabara.xcodeproj">
@@ -55,7 +55,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "ABAEB05CBBA6A99B13568F84"
+               BlueprintIdentifier = "0C0CBA1454B095E4FEC28B00"
                BuildableName = "TatabaraTests.xctest"
                BlueprintName = "TatabaraTests"
                ReferencedContainer = "container:Tatabara.xcodeproj">
@@ -77,7 +77,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1FA55C3802F7A909E46E0F57"
+            BlueprintIdentifier = "3150820EE99EF422AAA747F2"
             BuildableName = "Tatabara.app"
             BlueprintName = "Tatabara"
             ReferencedContainer = "container:Tatabara.xcodeproj">
@@ -94,7 +94,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1FA55C3802F7A909E46E0F57"
+            BlueprintIdentifier = "3150820EE99EF422AAA747F2"
             BuildableName = "Tatabara.app"
             BlueprintName = "Tatabara"
             ReferencedContainer = "container:Tatabara.xcodeproj">

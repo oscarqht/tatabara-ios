@@ -6,16 +6,16 @@ final class TimerEngine: ObservableObject {
     @Published private(set) var session: TimerSession?
     @Published private(set) var snapshot: TimerSessionSnapshot?
 
-    private let audioCoordinator: SessionAudioControlling
+    private let cueCoordinator: SessionCueCoordinating
     private let activitySyncer: SessionActivitySyncing
     private var ticker: AnyCancellable?
-    private var audioSyncTask: Task<Void, Never>?
+    private var cueSyncTask: Task<Void, Never>?
 
     init(
-        audioCoordinator: SessionAudioControlling = SessionAudioCoordinator(),
+        cueCoordinator: SessionCueCoordinating = NoopSessionCueCoordinator(),
         activitySyncer: SessionActivitySyncing = NoopSessionActivitySyncer()
     ) {
-        self.audioCoordinator = audioCoordinator
+        self.cueCoordinator = cueCoordinator
         self.activitySyncer = activitySyncer
     }
 
@@ -41,7 +41,7 @@ final class TimerEngine: ObservableObject {
 
         publishSnapshot(now: now)
         startTicker()
-        requestAudioSync()
+        requestCueSync()
     }
 
     func togglePauseResume(now: Date = .now) {
@@ -59,7 +59,7 @@ final class TimerEngine: ObservableObject {
 
         ticker?.cancel()
         publishSnapshot(now: now)
-        requestAudioSync()
+        requestCueSync()
     }
 
     func resume(now: Date = .now) {
@@ -74,7 +74,7 @@ final class TimerEngine: ObservableObject {
 
         publishSnapshot(now: now)
         startTicker()
-        requestAudioSync()
+        requestCueSync()
     }
 
     func restartCurrentPhase(now: Date = .now) {
@@ -88,7 +88,7 @@ final class TimerEngine: ObservableObject {
 
         publishSnapshot(now: now)
         startTicker()
-        requestAudioSync()
+        requestCueSync()
     }
 
     func stop() {
@@ -97,7 +97,7 @@ final class TimerEngine: ObservableObject {
         session = nil
         snapshot = nil
         activitySyncer.update(snapshot: nil)
-        requestAudioSync()
+        requestCueSync()
     }
 
     func synchronize(now: Date = .now) {
@@ -125,7 +125,7 @@ final class TimerEngine: ObservableObject {
                 activitySyncer.update(snapshot: completedSnapshot)
                 ticker?.cancel()
                 ticker = nil
-                requestAudioSync()
+                requestCueSync()
                 return
             }
 
@@ -243,33 +243,33 @@ final class TimerEngine: ObservableObject {
             .first(where: { $0.phase == .work || $0.phase == .rest })
     }
 
-    private func requestAudioSync() {
-        audioSyncTask?.cancel()
+    private func requestCueSync() {
+        cueSyncTask?.cancel()
 
         let snapshot = snapshot
         let remainingSegments = remainingSegments()
 
-        audioSyncTask = Task { @MainActor [weak self] in
+        cueSyncTask = Task { @MainActor [weak self] in
             await Task.yield()
 
             guard let self, !Task.isCancelled else { return }
 
             guard let snapshot else {
-                self.audioCoordinator.stop()
+                self.cueCoordinator.stop()
                 return
             }
 
             if snapshot.phase == .completed {
-                self.audioCoordinator.playCompletionCue()
+                self.cueCoordinator.playCompletionCue()
                 return
             }
 
             guard !snapshot.isPaused else {
-                self.audioCoordinator.stop()
+                self.cueCoordinator.stop()
                 return
             }
 
-            self.audioCoordinator.play(snapshot: snapshot, remainingSegments: remainingSegments)
+            self.cueCoordinator.play(snapshot: snapshot, remainingSegments: remainingSegments)
         }
     }
 }

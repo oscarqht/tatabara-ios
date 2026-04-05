@@ -1,13 +1,7 @@
 import AVFoundation
 import Foundation
 
-protocol SessionAudioControlling: AnyObject {
-    func play(snapshot: TimerSessionSnapshot, remainingSegments: [SessionSegment])
-    func playCompletionCue()
-    func stop()
-}
-
-final class SessionAudioCoordinator: SessionAudioControlling, @unchecked Sendable {
+final class SessionAudioCoordinator: SessionCueCoordinating, @unchecked Sendable {
     private enum AudioError: Error {
         case missingResource(String)
     }
@@ -440,10 +434,4 @@ final class SessionAudioCoordinator: SessionAudioControlling, @unchecked Sendabl
 
         return buffer
     }
-}
-
-final class NoopSessionAudioCoordinator: SessionAudioControlling {
-    func play(snapshot: TimerSessionSnapshot, remainingSegments: [SessionSegment]) {}
-    func playCompletionCue() {}
-    func stop() {}
 }
