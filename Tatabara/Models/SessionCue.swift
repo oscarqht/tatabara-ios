@@ -4,12 +4,14 @@ enum SessionCueKind: Equatable, Hashable {
     case beepShort
     case beepLong
     case beepRestFinal
+    case voiceRound(Int)
+    case voiceRest
     case voiceHalfway
     case voiceTenSeconds
 
     var isVoice: Bool {
         switch self {
-        case .voiceHalfway, .voiceTenSeconds:
+        case .voiceRound(_), .voiceRest, .voiceHalfway, .voiceTenSeconds:
             true
         case .beepShort, .beepLong, .beepRestFinal:
             false

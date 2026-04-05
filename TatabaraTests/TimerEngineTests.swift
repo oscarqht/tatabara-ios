@@ -3,6 +3,19 @@ import XCTest
 
 @MainActor
 final class TimerEngineTests: XCTestCase {
+    private func makeKinds(_ kinds: SessionCueKind...) -> [SessionCueKind] {
+        kinds
+    }
+
+    private func assertKinds(
+        _ actual: [SessionCueKind],
+        equalTo expected: [SessionCueKind],
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        XCTAssertEqual(actual, expected, file: file, line: line)
+    }
+
     private func assertOffsets(
         _ actual: [TimeInterval],
         equalTo expected: [TimeInterval],
@@ -30,8 +43,9 @@ final class TimerEngineTests: XCTestCase {
     }
 
     private func allowDeferredAudioSync() async {
-        await Task.yield()
-        await Task.yield()
+        for _ in 0..<10 {
+            await Task.yield()
+        }
     }
 
     func testEstimatedDurationExcludesCountdowns() {
@@ -126,17 +140,17 @@ final class TimerEngineTests: XCTestCase {
             currentElapsed: resumedPlayback.snapshot.elapsedSeconds
         )
 
-        XCTAssertEqual(
+        assertKinds(
             cues.map(\.kind),
-            [
+            equalTo: makeKinds(
                 .voiceHalfway, .voiceTenSeconds,
                 .beepShort, .beepShort, .beepLong,
-                .beepShort, .beepShort, .beepRestFinal,
-                .voiceHalfway, .voiceTenSeconds,
+                .voiceRest, .beepShort, .beepShort, .beepRestFinal,
+                .voiceRound(2), .voiceHalfway, .voiceTenSeconds,
                 .beepShort, .beepShort, .beepLong
-            ]
+            )
         )
-        assertOffsets(cues.map(\.offsetSeconds), equalTo: [8, 18, 25, 26, 27, 40, 41, 42, 63, 73, 80, 81, 82])
+        assertOffsets(cues.map(\.offsetSeconds), equalTo: [8, 18, 25, 26, 27, 28, 40, 41, 42, 43, 63, 73, 80, 81, 82])
     }
 
     func testStopClearsSessionBeforeAudioTeardownRuns() async {
@@ -173,10 +187,10 @@ final class TimerEngineTests: XCTestCase {
             currentElapsed: engine.snapshot?.elapsedSeconds ?? 0
         )
 
-        XCTAssertEqual(
+        assertKinds(
             cues.map(\.kind),
-            [.beepShort, .beepShort, .beepRestFinal, .voiceHalfway, .voiceTenSeconds, .beepShort, .beepShort, .beepLong]
+            equalTo: makeKinds(.beepShort, .beepShort, .beepRestFinal, .voiceRound(2), .voiceHalfway, .voiceTenSeconds, .beepShort, .beepShort, .beepLong)
         )
-        assertOffsets(cues.map(\.offsetSeconds), equalTo: [6, 7, 8, 29, 39, 46, 47, 48])
+        assertOffsets(cues.map(\.offsetSeconds), equalTo: [6, 7, 8, 9, 29, 39, 46, 47, 48])
     }
 }

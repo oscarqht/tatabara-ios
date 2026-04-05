@@ -19,6 +19,7 @@ final class SessionAudioCoordinator: SessionAudioControlling, @unchecked Sendabl
 
     private static let halfwayPhrase = "Half way there"
     private static let tenSecondsPhrase = "10 seconds"
+    private static let restPhrase = "Rest"
 
     private let speechRenderer = SpeechClipRenderer()
     private let sampleRate: Double = 22_050
@@ -46,6 +47,7 @@ final class SessionAudioCoordinator: SessionAudioControlling, @unchecked Sendabl
         warmupTask = Task.detached {
             _ = try? await renderer.fileURL(for: Self.halfwayPhrase)
             _ = try? await renderer.fileURL(for: Self.tenSecondsPhrase)
+            _ = try? await renderer.fileURL(for: Self.restPhrase)
         }
     }
 
@@ -221,7 +223,7 @@ final class SessionAudioCoordinator: SessionAudioControlling, @unchecked Sendabl
                 urls[kind] = try bundledAudio(named: "beep-long")
             case .beepRestFinal:
                 urls[kind] = try bundledAudio(named: "beep-rest-final")
-            case .voiceHalfway, .voiceTenSeconds:
+            case .voiceRound(_), .voiceRest, .voiceHalfway, .voiceTenSeconds:
                 continue
             }
         }
@@ -243,10 +245,8 @@ final class SessionAudioCoordinator: SessionAudioControlling, @unchecked Sendabl
 
         for kind in kinds {
             switch kind {
-            case .voiceHalfway:
-                urls[kind] = try await speechRenderer.fileURL(for: Self.halfwayPhrase)
-            case .voiceTenSeconds:
-                urls[kind] = try await speechRenderer.fileURL(for: Self.tenSecondsPhrase)
+            case .voiceRound(_), .voiceRest, .voiceHalfway, .voiceTenSeconds:
+                urls[kind] = try await speechRenderer.fileURL(for: phrase(for: kind))
             case .beepShort, .beepLong, .beepRestFinal:
                 continue
             }
@@ -333,6 +333,21 @@ final class SessionAudioCoordinator: SessionAudioControlling, @unchecked Sendabl
         }
 
         return url
+    }
+
+    private static func phrase(for kind: SessionCueKind) -> String {
+        switch kind {
+        case let .voiceRound(round):
+            "Round \(round)"
+        case .voiceRest:
+            restPhrase
+        case .voiceHalfway:
+            halfwayPhrase
+        case .voiceTenSeconds:
+            tenSecondsPhrase
+        case .beepShort, .beepLong, .beepRestFinal:
+            preconditionFailure("Requested a voice phrase for a non-voice cue.")
+        }
     }
 
     private static func makeSilentLoopBuffer(

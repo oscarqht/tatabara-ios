@@ -30,7 +30,10 @@ enum SessionCuePlanner {
     private static func cues(for segment: SessionSegment, phaseStartOffset: TimeInterval) -> [SessionCue] {
         switch segment.phase {
         case .work:
-            return workVoicePrompts(
+            return phaseStartPrompt(
+                for: segment,
+                phaseStartOffset: phaseStartOffset
+            ) + workVoicePrompts(
                 durationSeconds: segment.durationSeconds,
                 phaseStartOffset: phaseStartOffset
             ) + phaseEndPrompts(
@@ -40,7 +43,10 @@ enum SessionCuePlanner {
             )
 
         case .rest:
-            return phaseEndPrompts(
+            return phaseStartPrompt(
+                for: segment,
+                phaseStartOffset: phaseStartOffset
+            ) + phaseEndPrompts(
                 durationSeconds: segment.durationSeconds,
                 phaseStartOffset: phaseStartOffset,
                 finalBeep: .beepRestFinal
@@ -49,6 +55,29 @@ enum SessionCuePlanner {
         case .completed:
             return []
         }
+    }
+
+    private static func phaseStartPrompt(
+        for segment: SessionSegment,
+        phaseStartOffset: TimeInterval
+    ) -> [SessionCue] {
+        let cueKind: SessionCueKind
+
+        switch segment.phase {
+        case .work:
+            cueKind = .voiceRound(segment.cycleIndex)
+        case .rest:
+            cueKind = .voiceRest
+        case .completed:
+            return []
+        }
+
+        return [
+            SessionCue(
+                offsetSeconds: phaseStartOffset,
+                kind: cueKind
+            )
+        ]
     }
 
     private static func workVoicePrompts(

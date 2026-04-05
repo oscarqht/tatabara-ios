@@ -2,6 +2,19 @@ import XCTest
 @testable import Tatabara
 
 final class SessionCuePlannerTests: XCTestCase {
+    private func makeKinds(_ kinds: SessionCueKind...) -> [SessionCueKind] {
+        kinds
+    }
+
+    private func assertKinds(
+        _ actual: [SessionCueKind],
+        equalTo expected: [SessionCueKind],
+        file: StaticString = #filePath,
+        line: UInt = #line
+    ) {
+        XCTAssertEqual(actual, expected, file: file, line: line)
+    }
+
     private func assertOffsets(
         _ actual: [TimeInterval],
         equalTo expected: [TimeInterval],
@@ -21,13 +34,17 @@ final class SessionCuePlannerTests: XCTestCase {
             currentElapsed: 0
         )
 
-        XCTAssertEqual(cues.map(\.kind), [.voiceHalfway, .voiceTenSeconds, .beepShort, .beepShort, .beepLong])
-        XCTAssertEqual(cues.count, 5)
-        XCTAssertEqual(cues[0].offsetSeconds, 20, accuracy: 0.001)
-        XCTAssertEqual(cues[1].offsetSeconds, 30, accuracy: 0.001)
-        XCTAssertEqual(cues[2].offsetSeconds, 37, accuracy: 0.001)
-        XCTAssertEqual(cues[3].offsetSeconds, 38, accuracy: 0.001)
-        XCTAssertEqual(cues[4].offsetSeconds, 39, accuracy: 0.001)
+        assertKinds(
+            cues.map(\.kind),
+            equalTo: makeKinds(.voiceRound(1), .voiceHalfway, .voiceTenSeconds, .beepShort, .beepShort, .beepLong)
+        )
+        XCTAssertEqual(cues.count, 6)
+        XCTAssertEqual(cues[0].offsetSeconds, 0, accuracy: 0.001)
+        XCTAssertEqual(cues[1].offsetSeconds, 20, accuracy: 0.001)
+        XCTAssertEqual(cues[2].offsetSeconds, 30, accuracy: 0.001)
+        XCTAssertEqual(cues[3].offsetSeconds, 37, accuracy: 0.001)
+        XCTAssertEqual(cues[4].offsetSeconds, 38, accuracy: 0.001)
+        XCTAssertEqual(cues[5].offsetSeconds, 39, accuracy: 0.001)
     }
 
     func testPlannerAddsRestEndPatternOnly() {
@@ -36,8 +53,11 @@ final class SessionCuePlannerTests: XCTestCase {
             currentElapsed: 0
         )
 
-        XCTAssertEqual(cues.map(\.kind), [.beepShort, .beepShort, .beepRestFinal])
-        assertOffsets(cues.map(\.offsetSeconds), equalTo: [12, 13, 14])
+        assertKinds(
+            cues.map(\.kind),
+            equalTo: makeKinds(.voiceRest, .beepShort, .beepShort, .beepRestFinal)
+        )
+        assertOffsets(cues.map(\.offsetSeconds), equalTo: [0, 12, 13, 14])
         XCTAssertFalse(cues.contains(where: { $0.kind == .voiceHalfway }))
         XCTAssertFalse(cues.contains(where: { $0.kind == .voiceTenSeconds }))
     }
@@ -52,15 +72,15 @@ final class SessionCuePlannerTests: XCTestCase {
             currentElapsed: 0
         )
 
-        XCTAssertEqual(
+        assertKinds(
             cues.map(\.kind),
-            [
-                .voiceHalfway, .voiceTenSeconds, .beepShort, .beepShort, .beepLong,
-                .beepShort, .beepShort, .beepRestFinal,
-                .voiceHalfway, .voiceTenSeconds, .beepShort, .beepShort, .beepLong
-            ]
+            equalTo: makeKinds(
+                .voiceRound(1), .voiceHalfway, .voiceTenSeconds, .beepShort, .beepShort, .beepLong,
+                .voiceRest, .beepShort, .beepShort, .beepRestFinal,
+                .voiceRound(2), .voiceHalfway, .voiceTenSeconds, .beepShort, .beepShort, .beepLong
+            )
         )
-        assertOffsets(cues.map(\.offsetSeconds), equalTo: [20, 30, 37, 38, 39, 52, 53, 54, 75, 85, 92, 93, 94])
+        assertOffsets(cues.map(\.offsetSeconds), equalTo: [0, 20, 30, 37, 38, 39, 40, 52, 53, 54, 55, 75, 85, 92, 93, 94])
     }
 
     func testPlannerSkipsHalfwayForWorkoutShorterThanThirtySeconds() {
@@ -69,8 +89,11 @@ final class SessionCuePlannerTests: XCTestCase {
             currentElapsed: 0
         )
 
-        XCTAssertEqual(cues.map(\.kind), [.voiceTenSeconds, .beepShort, .beepShort, .beepLong])
-        assertOffsets(cues.map(\.offsetSeconds), equalTo: [19, 26, 27, 28])
+        assertKinds(
+            cues.map(\.kind),
+            equalTo: makeKinds(.voiceRound(1), .voiceTenSeconds, .beepShort, .beepShort, .beepLong)
+        )
+        assertOffsets(cues.map(\.offsetSeconds), equalTo: [0, 19, 26, 27, 28])
         XCTAssertFalse(cues.contains(where: { $0.kind == .voiceHalfway }))
     }
 
@@ -80,8 +103,11 @@ final class SessionCuePlannerTests: XCTestCase {
             currentElapsed: 0
         )
 
-        XCTAssertEqual(cues.map(\.kind), [.voiceHalfway, .voiceTenSeconds, .beepShort, .beepShort, .beepLong])
-        assertOffsets(cues.map(\.offsetSeconds), equalTo: [15, 20, 27, 28, 29])
+        assertKinds(
+            cues.map(\.kind),
+            equalTo: makeKinds(.voiceRound(1), .voiceHalfway, .voiceTenSeconds, .beepShort, .beepShort, .beepLong)
+        )
+        assertOffsets(cues.map(\.offsetSeconds), equalTo: [0, 15, 20, 27, 28, 29])
     }
 
     func testPlannerSkipsVoicePromptsWhenWorkoutIsTenSecondsOrLess() {
@@ -90,8 +116,11 @@ final class SessionCuePlannerTests: XCTestCase {
             currentElapsed: 0
         )
 
-        XCTAssertEqual(cues.map(\.kind), [.beepShort, .beepShort, .beepLong])
-        assertOffsets(cues.map(\.offsetSeconds), equalTo: [7, 8, 9])
+        assertKinds(
+            cues.map(\.kind),
+            equalTo: makeKinds(.voiceRound(1), .beepShort, .beepShort, .beepLong)
+        )
+        assertOffsets(cues.map(\.offsetSeconds), equalTo: [0, 7, 8, 9])
     }
 
     func testPlannerAccountsForElapsedTimeInCurrentSegment() {
@@ -100,7 +129,10 @@ final class SessionCuePlannerTests: XCTestCase {
             currentElapsed: 28
         )
 
-        XCTAssertEqual(cues.map(\.kind), [.voiceTenSeconds, .beepShort, .beepShort, .beepLong])
+        assertKinds(
+            cues.map(\.kind),
+            equalTo: makeKinds(.voiceTenSeconds, .beepShort, .beepShort, .beepLong)
+        )
         assertOffsets(cues.map(\.offsetSeconds), equalTo: [2, 9, 10, 11])
     }
 
@@ -114,15 +146,15 @@ final class SessionCuePlannerTests: XCTestCase {
             currentElapsed: 35
         )
 
-        XCTAssertEqual(
+        assertKinds(
             cues.map(\.kind),
-            [
+            equalTo: makeKinds(
                 .beepShort, .beepShort, .beepLong,
-                .beepShort, .beepShort, .beepRestFinal,
-                .voiceHalfway, .voiceTenSeconds,
+                .voiceRest, .beepShort, .beepShort, .beepRestFinal,
+                .voiceRound(2), .voiceHalfway, .voiceTenSeconds,
                 .beepShort, .beepShort, .beepLong
-            ]
+            )
         )
-        assertOffsets(cues.map(\.offsetSeconds), equalTo: [2, 3, 4, 17, 18, 19, 40, 50, 57, 58, 59])
+        assertOffsets(cues.map(\.offsetSeconds), equalTo: [2, 3, 4, 5, 17, 18, 19, 20, 40, 50, 57, 58, 59])
     }
 }
