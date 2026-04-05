@@ -109,6 +109,11 @@ final class TimerEngine: ObservableObject {
             return
         }
 
+        if session.completedAt != nil {
+            self.session = session
+            return
+        }
+
         while session.currentSegmentIndex < session.segments.count, now >= session.phaseEndDate {
             let nextIndex = session.currentSegmentIndex + 1
 
