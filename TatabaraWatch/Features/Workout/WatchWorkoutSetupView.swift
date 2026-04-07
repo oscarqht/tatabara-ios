@@ -1,7 +1,14 @@
 import SwiftUI
 
 struct WatchWorkoutSetupView: View {
+    private enum FocusTarget: Hashable {
+        case work
+        case rest
+        case cycles
+    }
+
     @ObservedObject var model: TatabaraAppModel
+    @FocusState private var focusedControl: FocusTarget?
 
     var body: some View {
         ScrollView(showsIndicators: false) {
@@ -12,6 +19,7 @@ struct WatchWorkoutSetupView: View {
                     value: model.preset.workDurationSeconds,
                     range: 10...120,
                     step: 5,
+                    focusTarget: .work,
                     tint: TatabaraTheme.ColorPalette.primary
                 ) { model.preset.workDurationSeconds = $0 }
                 stepperCard(
@@ -19,6 +27,7 @@ struct WatchWorkoutSetupView: View {
                     value: model.preset.restDurationSeconds,
                     range: 5...90,
                     step: 5,
+                    focusTarget: .rest,
                     tint: TatabaraTheme.ColorPalette.secondary
                 ) { model.preset.restDurationSeconds = $0 }
                 stepperCard(
@@ -26,12 +35,20 @@ struct WatchWorkoutSetupView: View {
                     value: model.preset.cycleCount,
                     range: 1...50,
                     step: 1,
+                    focusTarget: .cycles,
                     tint: TatabaraTheme.ColorPalette.tertiary
                 ) { model.preset.cycleCount = $0 }
                 startButton
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 12)
+        }
+        .onAppear {
+            // Prevent watchOS from restoring Digital Crown input to the last
+            // focused stepper when returning from the active workout screen.
+            DispatchQueue.main.async {
+                focusedControl = nil
+            }
         }
     }
 
@@ -59,6 +76,7 @@ struct WatchWorkoutSetupView: View {
         value: Int,
         range: ClosedRange<Int>,
         step: Int,
+        focusTarget: FocusTarget,
         tint: Color,
         onChange: @escaping (Int) -> Void
     ) -> some View {
@@ -85,6 +103,7 @@ struct WatchWorkoutSetupView: View {
                     .foregroundStyle(TatabaraTheme.ColorPalette.textPrimary)
             }
             .tint(tint)
+            .focused($focusedControl, equals: focusTarget)
         }
         .padding(12)
         .background(TatabaraTheme.ColorPalette.surfaceLow)
