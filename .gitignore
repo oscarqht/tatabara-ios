@@ -1,6 +1,7 @@
 ### macOS
 # Finder metadata
 .DS_Store
+**/.DS_Store
 
 # Thumbnails
 ._*

@@ -439,6 +439,7 @@
 						ProvisioningStyle = Automatic;
 					};
 					3150820EE99EF422AAA747F2 = {
+						DevelopmentTeam = G6F3KD9JS8;
 						ProvisioningStyle = Automatic;
 					};
 					F036FF39DD6694330A2B07F8 = {
@@ -745,6 +746,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Tatabara/PreviewContent\"";
+				DEVELOPMENT_TEAM = G6F3KD9JS8;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Tatabara/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -821,6 +823,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Tatabara/PreviewContent\"";
+				DEVELOPMENT_TEAM = G6F3KD9JS8;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Tatabara/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
