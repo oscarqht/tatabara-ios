@@ -24,7 +24,7 @@ struct WatchWorkoutSetupView: View {
                 stepperCard(
                     title: "Cycles",
                     value: model.preset.cycleCount,
-                    range: 1...20,
+                    range: 1...50,
                     step: 1,
                     tint: TatabaraTheme.ColorPalette.tertiary
                 ) { model.preset.cycleCount = $0 }

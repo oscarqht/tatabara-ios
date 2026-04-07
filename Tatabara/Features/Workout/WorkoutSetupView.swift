@@ -6,7 +6,7 @@ struct WorkoutSetupView: View {
 
     private let workValues = Array(stride(from: 10, through: 120, by: 5))
     private let restValues = Array(stride(from: 5, through: 90, by: 5))
-    private let cycleValues = Array(1...20)
+    private let cycleValues = Array(1...50)
 
     var body: some View {
         ScrollView(showsIndicators: false) {
