@@ -3,6 +3,24 @@ import XCTest
 
 @MainActor
 final class WatchSessionCueCoordinatorTests: XCTestCase {
+    private final class RecordingCoordinator: SessionCueCoordinating {
+        private(set) var playCalls: [(snapshot: TimerSessionSnapshot, remainingSegments: [SessionSegment])] = []
+        private(set) var completionCueCount = 0
+        private(set) var stopCount = 0
+
+        func play(snapshot: TimerSessionSnapshot, remainingSegments: [SessionSegment]) {
+            playCalls.append((snapshot, remainingSegments))
+        }
+
+        func playCompletionCue() {
+            completionCueCount += 1
+        }
+
+        func stop() {
+            stopCount += 1
+        }
+    }
+
     private final class RecordingEmitter: WatchCueEmitting, @unchecked Sendable {
         private(set) var patterns: [WatchCuePattern] = []
 
@@ -39,6 +57,60 @@ final class WatchSessionCueCoordinatorTests: XCTestCase {
             tasks.append(task)
             return task
         }
+    }
+
+    func testCompositeCoordinatorForwardsPlayToAllChildren() {
+        let first = RecordingCoordinator()
+        let second = RecordingCoordinator()
+        let coordinator = CompositeSessionCueCoordinator(coordinators: [first, second])
+        let preset = WorkoutPreset(workDurationSeconds: 40, restDurationSeconds: 15, cycleCount: 1)
+        let snapshot = TimerSessionSnapshot(
+            preset: preset,
+            phase: .work,
+            currentCycle: 1,
+            totalCycles: 1,
+            phaseStartDate: .now,
+            phaseEndDate: .now.addingTimeInterval(40),
+            phaseDuration: 40,
+            elapsedSeconds: 0,
+            remainingSeconds: 40,
+            progress: 0,
+            isPaused: false,
+            nextPhase: nil,
+            nextPhaseDuration: nil
+        )
+        let remainingSegments = TimerEngine.buildSegments(from: preset)
+
+        coordinator.play(snapshot: snapshot, remainingSegments: remainingSegments)
+
+        XCTAssertEqual(first.playCalls.count, 1)
+        XCTAssertEqual(second.playCalls.count, 1)
+        XCTAssertEqual(first.playCalls.first?.snapshot, snapshot)
+        XCTAssertEqual(second.playCalls.first?.snapshot, snapshot)
+        XCTAssertEqual(first.playCalls.first?.remainingSegments, remainingSegments)
+        XCTAssertEqual(second.playCalls.first?.remainingSegments, remainingSegments)
+    }
+
+    func testCompositeCoordinatorForwardsCompletionCueToAllChildren() {
+        let first = RecordingCoordinator()
+        let second = RecordingCoordinator()
+        let coordinator = CompositeSessionCueCoordinator(coordinators: [first, second])
+
+        coordinator.playCompletionCue()
+
+        XCTAssertEqual(first.completionCueCount, 1)
+        XCTAssertEqual(second.completionCueCount, 1)
+    }
+
+    func testCompositeCoordinatorForwardsStopToAllChildren() {
+        let first = RecordingCoordinator()
+        let second = RecordingCoordinator()
+        let coordinator = CompositeSessionCueCoordinator(coordinators: [first, second])
+
+        coordinator.stop()
+
+        XCTAssertEqual(first.stopCount, 1)
+        XCTAssertEqual(second.stopCount, 1)
     }
 
     func testEventsKeepOnlyWatchRelevantPatternsAfterRecovery() {
