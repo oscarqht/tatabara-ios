@@ -19,12 +19,10 @@ Icon
 .com.apple.timemachine.donotpresent
 
 ### Xcode
-# Xcode user settings
-xcuserdata/
-
 # Xcode build artifacts
 build/
 DerivedData/
+.build/
 
 # Obj-C/Swift specific
 *.hmap
@@ -41,26 +39,11 @@ playground.xcworkspace
 *.moved-aside
 *.xcuserstate
 *.xcscmblueprint
-
-
-### Swift
-# Xcode user settings
+*.xcuserdatad/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
 xcuserdata/
+.swiftpm/
 
-# Xcode build data
-DerivedData/
-
-# Swift/Obj-C specific
-*.hmap
-
-# App packaging
-*.ipa
-*.dSYM.zip
-*.dSYM
-
-# Playgrounds
-timeline.xctimeline
-playground.xcworkspace
-
-# Swift Package Manager
-# Package.resolved
+### Swift Package Manager
+# Keep Package.resolved tracked for app projects so dependency versions stay pinned.
